@@ -3,165 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBU | Mansingh & Brothers University - Elite Digital System</title>
+    <title>MBU | Global University System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .mbu-gradient { background: linear-gradient(135deg, #001a35 0%, #002e5d 100%); }
-        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
-        .receipt-border { border: 2px solid #002e5d; }
-        @media print { .no-print { display: none; } body { background: white; } }
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Inter:wght@300;800&display=swap');
+        body { background: #020617; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .royal-gradient { background: linear-gradient(135deg, #1e3a8a 0%, #000000 100%); }
+        .gold-glow { box-shadow: 0 0 30px rgba(234, 179, 8, 0.2); border: 1px solid rgba(234, 179, 8, 0.4); }
+        .btn-premium { background: linear-gradient(90deg, #ca8a04, #eab308); color: black; font-weight: 900; transition: 0.3s; }
+        .btn-premium:active { transform: scale(0.95); opacity: 0.8; }
+        .glass-panel { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .logo-font { font-family: 'Orbitron', sans-serif; letter-spacing: 4px; }
+        .loader { border-top-color: #eab308; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen font-sans">
+<body class="text-white">
 
-    <div id="loginPage" class="mbu-gradient min-h-screen flex items-center justify-center p-4">
-        <div class="bg-white max-w-md w-full rounded-[2.5rem] shadow-2xl overflow-hidden border-t-8 border-yellow-500">
-            <div class="bg-[#002e5d] p-8 text-center text-white">
-                <div class="bg-white w-16 h-16 rounded-2xl mx-auto flex items-center justify-center mb-3 shadow-lg">
-                    <i class="fas fa-university text-3xl text-[#002e5d]"></i>
+    <div id="loader" class="hidden fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center">
+        <div class="loader w-16 h-16 border-4 border-white/10 rounded-full mb-4"></div>
+        <p class="logo-font text-xs text-yellow-500 animate-pulse">AUTHORIZING ACCESS...</p>
+    </div>
+
+    <div id="loginPage" class="min-h-screen royal-gradient flex items-center justify-center p-6">
+        <div class="glass-panel p-10 rounded-[3rem] w-full max-w-md gold-glow">
+            <div class="text-center mb-10">
+                <div class="w-20 h-20 bg-yellow-500 rounded-2xl mx-auto flex items-center justify-center mb-4 rotate-3 shadow-2xl">
+                    <i class="fas fa-university text-4xl text-black"></i>
                 </div>
-                <h1 class="text-xl font-black italic">MBU UNIVERSITY</h1>
-                <p class="text-yellow-400 text-[10px] font-bold tracking-[0.2em] uppercase">Offline Education | Online Excellence</p>
+                <h1 class="text-3xl font-black logo-font italic text-yellow-500">MBU</h1>
+                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.4em] mt-2">Elite University Portal</p>
             </div>
-            <div class="p-8">
-                <form onsubmit="handleAuth(event)" class="space-y-4">
-                    <input type="text" id="uid" placeholder="Authorized User ID" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none focus:ring-2 focus:ring-blue-900 font-bold" required>
-                    <input type="password" id="upass" placeholder="Security PIN" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none focus:ring-2 focus:ring-blue-900 font-bold" required>
-                    <button class="w-full bg-[#002e5d] text-white py-4 rounded-2xl font-black shadow-lg hover:scale-105 transition">ENTER SYSTEM</button>
-                </form>
-                <div class="mt-6 flex justify-between text-[10px] font-bold uppercase tracking-tighter">
-                    <button onclick="showSection('affiliationPage')" class="text-blue-900 underline">Apply Affiliation</button>
-                    <button onclick="showSection('verifyPortal')" class="text-red-600 underline">Verify Documents</button>
+            
+            <div class="space-y-5">
+                <div class="relative">
+                    <i class="fas fa-user-shield absolute left-4 top-4 text-gray-500 text-sm"></i>
+                    <input type="text" id="uid" placeholder="CHANCELLOR ID" class="w-full pl-12 p-4 bg-white/5 border border-white/10 rounded-2xl focus:border-yellow-500 outline-none uppercase font-bold text-sm tracking-widest transition">
                 </div>
+                <div class="relative">
+                    <i class="fas fa-lock absolute left-4 top-4 text-gray-500 text-sm"></i>
+                    <input type="password" id="upass" placeholder="SECURITY PIN" class="w-full pl-12 p-4 bg-white/5 border border-white/10 rounded-2xl focus:border-yellow-500 outline-none font-bold text-sm transition">
+                </div>
+                <button onclick="secureLogin()" class="w-full btn-premium py-5 rounded-2xl uppercase tracking-tighter text-sm shadow-2xl">
+                    Authenticate & Enter System
+                </button>
+            </div>
+            <div class="mt-8 flex justify-between text-[10px] text-gray-500 font-black uppercase">
+                <span>V3.0.1 Stable</span>
+                <span class="text-yellow-500/50 italic">Encrypted Connection</span>
             </div>
         </div>
     </div>
 
-    <div id="adminPanel" class="hidden">
-        <nav class="bg-slate-900 text-white p-4 px-10 flex justify-between items-center">
-            <h1 class="font-black italic">MBU | CHANCELLOR CONTROL</h1>
-            <button onclick="logout()" class="bg-red-600 px-4 py-1 rounded text-xs font-bold">LOGOUT</button>
+    <div id="mainPortal" class="hidden min-h-screen">
+        <nav class="p-6 flex justify-between items-center glass-panel sticky top-0 z-50">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-yellow-500 rounded flex items-center justify-center text-black font-black italic">M</div>
+                <h1 class="logo-font text-lg font-black tracking-widest">MBU <span class="text-yellow-500">ADMIN</span></h1>
+            </div>
+            <button onclick="location.reload()" class="bg-red-500/20 text-red-500 border border-red-500/30 px-4 py-2 rounded-xl text-[10px] font-black hover:bg-red-600 hover:text-white transition">SECURE LOGOUT</button>
         </nav>
-        <div class="p-8 max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 text-center">
-                <div class="bg-white p-6 rounded-2xl shadow border-l-8 border-blue-600"><p class="text-gray-400 text-xs font-bold uppercase">Colleges</p><p class="text-3xl font-black">124</p></div>
-                <div class="bg-white p-6 rounded-2xl shadow border-l-8 border-green-600"><p class="text-gray-400 text-xs font-bold uppercase">Students</p><p class="text-3xl font-black">45,280</p></div>
-                <div class="bg-white p-6 rounded-2xl shadow border-l-8 border-yellow-500"><p class="text-gray-400 text-xs font-bold uppercase">Status</p><p class="text-xl font-black text-green-600 italic uppercase">Secure</p></div>
-            </div>
-            <div class="bg-white p-8 rounded-3xl shadow overflow-x-auto">
-                <h2 class="text-xl font-bold mb-6 border-b pb-2">Master Database (Authorized IDs)</h2>
-                <table class="w-full text-left">
-                    <tr class="bg-gray-100 text-[10px] uppercase font-black">
-                        <th class="p-3">Role</th><th class="p-3">User ID</th><th class="p-3">Password</th><th class="p-3">Status</th>
-                    </tr>
-                    <tr class="border-b text-sm">
-                        <td class="p-3 text-red-600 font-bold italic">Chancellor</td><td class="p-3 font-mono">MBU_CHANCELLOR_01</td><td class="p-3 font-mono">MBU_SUPER_POWER_2026</td><td class="p-3 text-green-600">Master</td>
-                    </tr>
-                    <tr class="border-b text-sm">
-                        <td class="p-3">College</td><td class="p-3 font-mono text-blue-700">MBU_CLG_9001</td><td class="p-3 font-mono">MBU@901</td><td class="p-3 text-green-600">Approved</td>
-                    </tr>
-                    <tr class="border-b text-sm">
-                        <td class="p-3">Student</td><td class="p-3 font-mono text-blue-700">MBU_STUDENT_55</td><td class="p-3 font-mono">MBU@Student#55</td><td class="p-3 text-green-600">Approved</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
 
-    <div id="studentPanel" class="hidden">
-        <nav class="bg-blue-900 text-white p-4 px-10 flex justify-between items-center">
-            <h1 class="font-bold italic uppercase tracking-tighter">Student Portal | MBU</h1>
-            <button onclick="logout()" class="text-[10px] bg-white/20 px-3 py-1 rounded-full uppercase font-bold">Logout</button>
-        </nav>
-        <div class="p-6 max-w-4xl mx-auto">
-            <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border-b-8 border-blue-900">
-                <h2 class="text-3xl font-black text-gray-800">Welcome, Mansingh!</h2>
-                <p class="text-gray-500 font-bold uppercase text-[10px] tracking-widest italic text-yellow-600">ID: MBU/STUDENT/55</p>
-                <div class="mt-10 grid grid-cols-2 gap-4">
-                    <button onclick="showSection('marksheetPage')" class="bg-blue-50 p-6 rounded-3xl border border-blue-100 flex flex-col items-center">
-                        <i class="fas fa-file-invoice text-2xl mb-2"></i><span class="text-xs font-black uppercase">Result</span>
+        <div class="p-8 max-w-7xl mx-auto space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="glass-panel p-6 rounded-3xl border-l-4 border-blue-500">
+                    <p class="text-[10px] font-bold text-gray-500 uppercase">Affiliated Colleges</p>
+                    <h2 class="text-4xl font-black mt-1">124</h2>
+                </div>
+                <div class="glass-panel p-6 rounded-3xl border-l-4 border-yellow-500">
+                    <p class="text-[10px] font-bold text-gray-500 uppercase">System Revenue</p>
+                    <h2 class="text-4xl font-black mt-1 text-yellow-500">₹8.4M</h2>
+                </div>
+                <div class="glass-panel p-6 rounded-3xl border-l-4 border-green-500">
+                    <p class="text-[10px] font-bold text-gray-500 uppercase">Student Strength</p>
+                    <h2 class="text-4xl font-black mt-1">45,280</h2>
+                </div>
+                <div class="glass-panel p-6 rounded-3xl border-l-4 border-purple-500">
+                    <p class="text-[10px] font-bold text-gray-500 uppercase">Global Rank</p>
+                    <h2 class="text-4xl font-black mt-1 text-purple-400">#01</h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 glass-panel rounded-[2.5rem] p-8">
+                    <div class="flex justify-between items-center mb-8">
+                        <h3 class="text-xl font-black uppercase tracking-widest italic">Live Database</h3>
+                        <button class="bg-blue-600 text-[10px] px-4 py-2 rounded-lg font-bold uppercase"><i class="fas fa-plus mr-2"></i>New Entry</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <tr class="text-gray-500 text-[10px] border-b border-white/5">
+                                <th class="pb-4">NAME</th><th class="pb-4">ROLE</th><th class="pb-4">STATUS</th><th class="pb-4">ID</th>
+                            </tr>
+                            <tbody id="dbRows"></tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="glass-panel rounded-[2.5rem] p-8 space-y-6 text-center">
+                    <h3 class="text-sm font-black uppercase tracking-widest text-yellow-500 mb-4">Chancellor Actions</h3>
+                    <button class="w-full p-6 glass-panel rounded-3xl hover:bg-yellow-500 hover:text-black transition group text-left">
+                        <i class="fas fa-print text-xl mb-3 group-hover:text-black text-yellow-500"></i>
+                        <p class="font-black text-xs uppercase">Generate Reports</p>
                     </button>
-                    <button onclick="showSection('receiptPage')" class="bg-green-50 p-6 rounded-3xl border border-green-100 flex flex-col items-center">
-                        <i class="fas fa-receipt text-2xl mb-2"></i><span class="text-xs font-black uppercase">Fee Slip</span>
+                    <button class="w-full p-6 glass-panel rounded-3xl hover:bg-blue-600 transition group text-left">
+                        <i class="fas fa-university text-xl mb-3 group-hover:text-white text-blue-500"></i>
+                        <p class="font-black text-xs uppercase">Affiliate New College</p>
                     </button>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div id="marksheetPage" class="hidden p-4 md:p-10 bg-gray-100">
-        <button onclick="showSection('studentPanel')" class="no-print mb-6 text-blue-900 font-black"><i class="fas fa-arrow-left"></i> BACK</button>
-        <div class="max-w-3xl mx-auto bg-white p-10 border-[15px] border-[#002e5d] shadow-2xl">
-            <div class="text-center border-b-2 border-black pb-4 mb-6 uppercase">
-                <h1 class="text-2xl font-black text-blue-900">MANSINGH & BROTHERS UNIVERSITY</h1>
-                <p class="text-[10px] font-bold tracking-widest">Statement of Marks - 2026</p>
-            </div>
-            <div class="flex justify-between text-[11px] font-bold mb-8 uppercase">
-                <div>Student: Mansingh<br>Roll: MBU/55/2026</div>
-                <div class="text-right">Course: B.Digital Excellence<br>Result: PASS (91%)</div>
-            </div>
-            <div class="mt-12 flex justify-between items-end">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=VERIFIED_MBU_55" class="w-20 border p-1">
-                <p class="text-[10px] font-black uppercase border-t border-black">Controller of Exams</p>
-            </div>
-        </div>
-        <div class="text-center mt-6 no-print"><button onclick="window.print()" class="bg-blue-900 text-white px-8 py-2 rounded-full font-bold">Print Marksheet</button></div>
-    </div>
-
-    <div id="receiptPage" class="hidden p-10">
-        <button onclick="showSection('studentPanel')" class="no-print mb-6 text-blue-900 font-bold"><i class="fas fa-arrow-left"></i> BACK</button>
-        <div class="max-w-md mx-auto bg-white p-8 receipt-border shadow-2xl">
-            <h2 class="text-center font-black text-blue-900 mb-6">MBU OFFICIAL FEE RECEIPT</h2>
-            <div class="space-y-4 text-xs font-bold uppercase">
-                <div class="flex justify-between"><span>Paid By:</span><span>Mansingh</span></div>
-                <div class="flex justify-between border-t pt-4"><span>Total Amount:</span><span class="text-green-600 text-lg">₹ 22,500.00</span></div>
-            </div>
-            <div class="mt-6 text-center text-green-700 font-bold uppercase italic">Transaction Successful</div>
-        </div>
-    </div>
-
-    <div id="verifyPortal" class="hidden min-h-screen bg-slate-50 p-6">
-        <div class="max-w-xl mx-auto mt-10 text-center">
-            <h2 class="text-3xl font-black text-blue-900 uppercase">MBU Verification Cell</h2>
-            <div class="bg-white p-8 rounded-3xl shadow-xl mt-6">
-                <input type="text" id="rollIn" placeholder="ENTER ENROLLMENT NO. (e.g. 55)" class="w-full p-4 border rounded-2xl font-black mb-4">
-                <button onclick="verifyRoll()" class="w-full bg-blue-900 text-white py-4 rounded-2xl font-black">SEARCH DATABASE</button>
-                <div id="vOut" class="hidden mt-6 p-4 rounded-2xl bg-green-50 text-green-700 font-bold">Authenticated: Mansingh Student ✅</div>
-            </div>
-            <button onclick="showSection('loginPage')" class="mt-6 text-xs underline font-bold">Back to Login</button>
-        </div>
-    </div>
-
-    <div id="affiliationPage" class="hidden mbu-gradient min-h-screen p-10 text-center">
-        <div class="max-w-md mx-auto bg-white rounded-3xl p-10 shadow-2xl">
-            <h2 class="text-2xl font-black text-blue-900 uppercase italic">Affiliation Request</h2>
-            <p class="text-sm text-gray-500 mt-2 mb-6">Submit college details for review.</p>
-            <input type="text" placeholder="College Name" class="w-full p-4 border rounded-xl mb-4 font-bold italic">
-            <button onclick="alert('Application Sent!'); showSection('loginPage')" class="w-full bg-blue-900 text-white py-4 rounded-xl font-black uppercase">Submit to Chancellor</button>
         </div>
     </div>
 
     <script>
-        function showSection(id) {
-            document.querySelectorAll('body > div').forEach(div => div.classList.add('hidden'));
-            document.getElementById(id).classList.remove('hidden');
+        const MASTER_DATA = [
+            { id: "MBU_CHANCELLOR_01", pin: "MBU_SUPER_POWER_2026", name: "Chancellor Mansingh", role: "Supreme Admin", status: "Active" },
+            { id: "MBU_CLG_9001", pin: "MBU@901", name: "Modern Elite College", role: "Affiliate College", status: "Approved" },
+            { id: "MBU_STUDENT_55", pin: "MBU@Student#55", name: "Rishabh Singh", role: "Student", status: "Premium" }
+        ];
+
+        function secureLogin() {
+            const u = document.getElementById('uid').value.trim();
+            const p = document.getElementById('upass').value.trim();
+            
+            // Show Loader
+            document.getElementById('loader').classList.remove('hidden');
+
+            setTimeout(() => {
+                const user = MASTER_DATA.find(x => x.id === u && x.pin === p);
+                
+                if (user) {
+                    document.getElementById('loader').classList.add('hidden');
+                    document.getElementById('loginPage').classList.add('hidden');
+                    document.getElementById('mainPortal').classList.remove('hidden');
+                    loadData();
+                } else {
+                    document.getElementById('loader').classList.add('hidden');
+                    alert("⚠️ CRITICAL ERROR: Access Denied. Sahi credentials daalein.");
+                }
+            }, 1200); // 1.2 second ka loading effect
         }
-        function handleAuth(e) {
-            e.preventDefault();
-            const id = document.getElementById('uid').value;
-            const ps = document.getElementById('upass').value;
-            if(id === 'MBU_CHANCELLOR_01' && ps === 'MBU_SUPER_POWER_2026') showSection('adminPanel');
-            else if(id === 'MBU_STUDENT_55' && ps === 'MBU@Student#55') showSection('studentPanel');
-            else if(id === 'MBU_CLG_9001' && ps === 'MBU@901') showSection('studentPanel');
-            else alert("Galti! Sahi ID/PIN daalein.");
+
+        function loadData() {
+            const table = document.getElementById('dbRows');
+            table.innerHTML = MASTER_DATA.map(user => `
+                <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                    <td class="py-4 font-bold uppercase text-xs">${user.name}</td>
+                    <td class="py-4 text-blue-400 text-[10px] font-black uppercase tracking-widest">${user.role}</td>
+                    <td class="py-4"><span class="bg-green-500/10 text-green-500 px-3 py-1 rounded-full text-[9px] font-black uppercase border border-green-500/20">${user.status}</span></td>
+                    <td class="py-4 font-mono text-[10px] text-gray-500">${user.id}</td>
+                </tr>
+            `).join('');
         }
-        function verifyRoll() {
-            const r = document.getElementById('rollIn').value;
-            if(r.includes('55')) document.getElementById('vOut').classList.remove('hidden');
-            else alert('Record nahi mila!');
-        }
-        function logout() { location.reload(); }
     </script>
 </body>
 </html>
