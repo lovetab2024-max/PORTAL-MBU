@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBU | Mansingh & Brothers University - Elite Digital System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .mbu-gradient { background: linear-gradient(135deg, #001a35 0%, #002e5d 100%); }
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .receipt-border { border: 2px solid #002e5d; }
+        @media print { .no-print { display: none; } body { background: white; } }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+
+    <div id="loginPage" class="mbu-gradient min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white max-w-md w-full rounded-[2.5rem] shadow-2xl overflow-hidden border-t-8 border-yellow-500">
+            <div class="bg-[#002e5d] p-8 text-center text-white">
+                <div class="bg-white w-16 h-16 rounded-2xl mx-auto flex items-center justify-center mb-3 shadow-lg">
+                    <i class="fas fa-university text-3xl text-[#002e5d]"></i>
+                </div>
+                <h1 class="text-xl font-black italic">MBU UNIVERSITY</h1>
+                <p class="text-yellow-400 text-[10px] font-bold tracking-[0.2em] uppercase">Offline Education | Online Excellence</p>
+            </div>
+            <div class="p-8">
+                <form onsubmit="handleAuth(event)" class="space-y-4">
+                    <input type="text" id="uid" placeholder="Authorized User ID" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none focus:ring-2 focus:ring-blue-900 font-bold" required>
+                    <input type="password" id="upass" placeholder="Security PIN" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none focus:ring-2 focus:ring-blue-900 font-bold" required>
+                    <button class="w-full bg-[#002e5d] text-white py-4 rounded-2xl font-black shadow-lg hover:scale-105 transition">ENTER SYSTEM</button>
+                </form>
+                <div class="mt-6 flex justify-between text-[10px] font-bold uppercase tracking-tighter">
+                    <button onclick="showSection('affiliationPage')" class="text-blue-900 underline">Apply Affiliation</button>
+                    <button onclick="showSection('verifyPortal')" class="text-red-600 underline">Verify Documents</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminPanel" class="hidden">
+        <nav class="bg-slate-900 text-white p-4 px-10 flex justify-between items-center">
+            <h1 class="font-black italic">MBU | CHANCELLOR CONTROL</h1>
+            <button onclick="logout()" class="bg-red-600 px-4 py-1 rounded text-xs font-bold">LOGOUT</button>
+        </nav>
+        <div class="p-8 max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 text-center">
+                <div class="bg-white p-6 rounded-2xl shadow border-l-8 border-blue-600"><p class="text-gray-400 text-xs font-bold uppercase">Colleges</p><p class="text-3xl font-black">124</p></div>
+                <div class="bg-white p-6 rounded-2xl shadow border-l-8 border-green-600"><p class="text-gray-400 text-xs font-bold uppercase">Students</p><p class="text-3xl font-black">45,280</p></div>
+                <div class="bg-white p-6 rounded-2xl shadow border-l-8 border-yellow-500"><p class="text-gray-400 text-xs font-bold uppercase">Status</p><p class="text-xl font-black text-green-600 italic uppercase">Secure</p></div>
+            </div>
+            <div class="bg-white p-8 rounded-3xl shadow overflow-x-auto">
+                <h2 class="text-xl font-bold mb-6 border-b pb-2">Master Database (Authorized IDs)</h2>
+                <table class="w-full text-left">
+                    <tr class="bg-gray-100 text-[10px] uppercase font-black">
+                        <th class="p-3">Role</th><th class="p-3">User ID</th><th class="p-3">Password</th><th class="p-3">Status</th>
+                    </tr>
+                    <tr class="border-b text-sm">
+                        <td class="p-3 text-red-600 font-bold italic">Chancellor</td><td class="p-3 font-mono">MBU_CHANCELLOR_01</td><td class="p-3 font-mono">MBU_SUPER_POWER_2026</td><td class="p-3 text-green-600">Master</td>
+                    </tr>
+                    <tr class="border-b text-sm">
+                        <td class="p-3">College</td><td class="p-3 font-mono text-blue-700">MBU_CLG_9001</td><td class="p-3 font-mono">MBU@901</td><td class="p-3 text-green-600">Approved</td>
+                    </tr>
+                    <tr class="border-b text-sm">
+                        <td class="p-3">Student</td><td class="p-3 font-mono text-blue-700">MBU_STUDENT_55</td><td class="p-3 font-mono">MBU@Student#55</td><td class="p-3 text-green-600">Approved</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="studentPanel" class="hidden">
+        <nav class="bg-blue-900 text-white p-4 px-10 flex justify-between items-center">
+            <h1 class="font-bold italic uppercase tracking-tighter">Student Portal | MBU</h1>
+            <button onclick="logout()" class="text-[10px] bg-white/20 px-3 py-1 rounded-full uppercase font-bold">Logout</button>
+        </nav>
+        <div class="p-6 max-w-4xl mx-auto">
+            <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border-b-8 border-blue-900">
+                <h2 class="text-3xl font-black text-gray-800">Welcome, Mansingh!</h2>
+                <p class="text-gray-500 font-bold uppercase text-[10px] tracking-widest italic text-yellow-600">ID: MBU/STUDENT/55</p>
+                <div class="mt-10 grid grid-cols-2 gap-4">
+                    <button onclick="showSection('marksheetPage')" class="bg-blue-50 p-6 rounded-3xl border border-blue-100 flex flex-col items-center">
+                        <i class="fas fa-file-invoice text-2xl mb-2"></i><span class="text-xs font-black uppercase">Result</span>
+                    </button>
+                    <button onclick="showSection('receiptPage')" class="bg-green-50 p-6 rounded-3xl border border-green-100 flex flex-col items-center">
+                        <i class="fas fa-receipt text-2xl mb-2"></i><span class="text-xs font-black uppercase">Fee Slip</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="marksheetPage" class="hidden p-4 md:p-10 bg-gray-100">
+        <button onclick="showSection('studentPanel')" class="no-print mb-6 text-blue-900 font-black"><i class="fas fa-arrow-left"></i> BACK</button>
+        <div class="max-w-3xl mx-auto bg-white p-10 border-[15px] border-[#002e5d] shadow-2xl">
+            <div class="text-center border-b-2 border-black pb-4 mb-6 uppercase">
+                <h1 class="text-2xl font-black text-blue-900">MANSINGH & BROTHERS UNIVERSITY</h1>
+                <p class="text-[10px] font-bold tracking-widest">Statement of Marks - 2026</p>
+            </div>
+            <div class="flex justify-between text-[11px] font-bold mb-8 uppercase">
+                <div>Student: Mansingh<br>Roll: MBU/55/2026</div>
+                <div class="text-right">Course: B.Digital Excellence<br>Result: PASS (91%)</div>
+            </div>
+            <div class="mt-12 flex justify-between items-end">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=VERIFIED_MBU_55" class="w-20 border p-1">
+                <p class="text-[10px] font-black uppercase border-t border-black">Controller of Exams</p>
+            </div>
+        </div>
+        <div class="text-center mt-6 no-print"><button onclick="window.print()" class="bg-blue-900 text-white px-8 py-2 rounded-full font-bold">Print Marksheet</button></div>
+    </div>
+
+    <div id="receiptPage" class="hidden p-10">
+        <button onclick="showSection('studentPanel')" class="no-print mb-6 text-blue-900 font-bold"><i class="fas fa-arrow-left"></i> BACK</button>
+        <div class="max-w-md mx-auto bg-white p-8 receipt-border shadow-2xl">
+            <h2 class="text-center font-black text-blue-900 mb-6">MBU OFFICIAL FEE RECEIPT</h2>
+            <div class="space-y-4 text-xs font-bold uppercase">
+                <div class="flex justify-between"><span>Paid By:</span><span>Mansingh</span></div>
+                <div class="flex justify-between border-t pt-4"><span>Total Amount:</span><span class="text-green-600 text-lg">₹ 22,500.00</span></div>
+            </div>
+            <div class="mt-6 text-center text-green-700 font-bold uppercase italic">Transaction Successful</div>
+        </div>
+    </div>
+
+    <div id="verifyPortal" class="hidden min-h-screen bg-slate-50 p-6">
+        <div class="max-w-xl mx-auto mt-10 text-center">
+            <h2 class="text-3xl font-black text-blue-900 uppercase">MBU Verification Cell</h2>
+            <div class="bg-white p-8 rounded-3xl shadow-xl mt-6">
+                <input type="text" id="rollIn" placeholder="ENTER ENROLLMENT NO. (e.g. 55)" class="w-full p-4 border rounded-2xl font-black mb-4">
+                <button onclick="verifyRoll()" class="w-full bg-blue-900 text-white py-4 rounded-2xl font-black">SEARCH DATABASE</button>
+                <div id="vOut" class="hidden mt-6 p-4 rounded-2xl bg-green-50 text-green-700 font-bold">Authenticated: Mansingh Student ✅</div>
+            </div>
+            <button onclick="showSection('loginPage')" class="mt-6 text-xs underline font-bold">Back to Login</button>
+        </div>
+    </div>
+
+    <div id="affiliationPage" class="hidden mbu-gradient min-h-screen p-10 text-center">
+        <div class="max-w-md mx-auto bg-white rounded-3xl p-10 shadow-2xl">
+            <h2 class="text-2xl font-black text-blue-900 uppercase italic">Affiliation Request</h2>
+            <p class="text-sm text-gray-500 mt-2 mb-6">Submit college details for review.</p>
+            <input type="text" placeholder="College Name" class="w-full p-4 border rounded-xl mb-4 font-bold italic">
+            <button onclick="alert('Application Sent!'); showSection('loginPage')" class="w-full bg-blue-900 text-white py-4 rounded-xl font-black uppercase">Submit to Chancellor</button>
+        </div>
+    </div>
+
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('body > div').forEach(div => div.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+        }
+        function handleAuth(e) {
+            e.preventDefault();
+            const id = document.getElementById('uid').value;
+            const ps = document.getElementById('upass').value;
+            if(id === 'MBU_CHANCELLOR_01' && ps === 'MBU_SUPER_POWER_2026') showSection('adminPanel');
+            else if(id === 'MBU_STUDENT_55' && ps === 'MBU@Student#55') showSection('studentPanel');
+            else if(id === 'MBU_CLG_9001' && ps === 'MBU@901') showSection('studentPanel');
+            else alert("Galti! Sahi ID/PIN daalein.");
+        }
+        function verifyRoll() {
+            const r = document.getElementById('rollIn').value;
+            if(r.includes('55')) document.getElementById('vOut').classList.remove('hidden');
+            else alert('Record nahi mila!');
+        }
+        function logout() { location.reload(); }
+    </script>
+</body>
+</html>
