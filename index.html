@@ -3,211 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBU | Chancellor Supreme Engine</title>
+    <title>MBU | University Management System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background: #020617; color: white; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background: #020617; color: white; }
         .mbu-gold { background: linear-gradient(135deg, #b45309 0%, #78350f 100%); }
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .degree-box { border: 15px double #b45309; background: white; color: black; padding: 50px; position: relative; min-height: 800px; }
-        .id-card { width: 350px; background: white; color: black; border-radius: 20px; border: 3px solid #b45309; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        @media print { .no-print { display: none !important; } .print-area { display: block !important; } body { background: white; } }
+        .degree-box { border: 15px double #b45309; background: white; color: black; padding: 50px; position: relative; }
+        @media print { .no-print { display: none !important; } }
     </style>
 </head>
 <body>
 
-    <div id="loginPage" class="min-h-screen flex items-center justify-center bg-slate-950 p-6 no-print">
-        <div class="max-w-md w-full glass rounded-[3rem] p-10 border-t-4 border-amber-600 shadow-2xl text-center">
-            <i class="fas fa-crown text-5xl text-amber-500 mb-4"></i>
-            <h1 class="text-3xl font-black italic mb-2 tracking-tighter uppercase">MBU Supreme</h1>
-            <p class="text-[9px] text-gray-500 uppercase tracking-[0.3em] mb-8">University Control Panel</p>
-            <div class="space-y-4">
-                <input type="text" id="uid" placeholder="CHANCELLOR ID" class="w-full p-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-amber-500 uppercase font-black text-sm">
-                <input type="password" id="upass" placeholder="SECURITY PIN" class="w-full p-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-amber-500 font-black text-sm text-center">
-                <button onclick="handleLogin()" class="w-full mbu-gold py-5 rounded-2xl uppercase font-black text-sm tracking-widest shadow-xl active:scale-95 transition">Authorize Access</button>
+    <div id="landingPage" class="min-h-screen flex flex-col items-center justify-center p-6 space-y-8">
+        <div class="text-center">
+            <i class="fas fa-university text-6xl text-amber-500 mb-4"></i>
+            <h1 class="text-4xl font-black italic">MANSINGH & BROTHERS UNIVERSITY</h1>
+            <p class="text-gray-400 mt-2 uppercase tracking-widest text-xs">Academic Excellence & Recognition</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl">
+            <div class="glass p-8 rounded-3xl border-t-4 border-amber-600 hover:bg-white/5 transition cursor-pointer" onclick="showSection('affiliationForm')">
+                <i class="fas fa-file-signature text-amber-500 text-3xl mb-4"></i>
+                <h3 class="font-black text-lg">College Affiliation</h3>
+                <p class="text-[10px] text-gray-400 mt-2">New colleges can apply here without an account.</p>
+            </div>
+            <div class="glass p-8 rounded-3xl border-t-4 border-red-600 hover:bg-white/5 transition cursor-pointer" onclick="showSection('loginPanel', 'Chancellor')">
+                <i class="fas fa-crown text-red-500 text-3xl mb-4"></i>
+                <h3 class="font-black text-lg">Chancellor Login</h3>
+                <p class="text-[10px] text-gray-400 mt-2">University Master Control Access.</p>
+            </div>
+            <div class="glass p-8 rounded-3xl border-t-4 border-blue-600 hover:bg-white/5 transition cursor-pointer" onclick="showSection('loginPanel', 'College')">
+                <i class="fas fa-building-columns text-blue-500 text-3xl mb-4"></i>
+                <h3 class="font-black text-lg">College Login</h3>
+                <p class="text-[10px] text-gray-400 mt-2">For already affiliated institutions.</p>
+            </div>
+            <div class="glass p-8 rounded-3xl border-t-4 border-green-600 hover:bg-white/5 transition cursor-pointer" onclick="showSection('loginPanel', 'Student')">
+                <i class="fas fa-user-graduate text-green-500 text-3xl mb-4"></i>
+                <h3 class="font-black text-lg">Student Portal</h3>
+                <p class="text-[10px] text-gray-400 mt-2">Download ID Card, Admit Card & Degree.</p>
             </div>
         </div>
     </div>
 
-    <div id="mainPortal" class="hidden min-h-screen flex flex-col md:flex-row">
-        <aside class="w-full md:w-72 bg-black border-r border-white/10 p-6 no-print flex flex-col">
-            <div class="text-center mb-10">
-                <h2 class="text-2xl font-black italic text-amber-600">MBU 2026</h2>
-                <p class="text-[8px] text-gray-500 uppercase tracking-widest">Master Administration</p>
+    <div id="affiliationForm" class="hidden min-h-screen p-10">
+        <button onclick="goHome()" class="text-amber-500 font-black mb-8"><i class="fas fa-arrow-left mr-2"></i> Back to Home</button>
+        <div class="max-w-2xl mx-auto glass p-10 rounded-[3rem]">
+            <h2 class="text-3xl font-black italic mb-6">Affiliation Request Form</h2>
+            <div class="space-y-4 text-black">
+                <input type="text" id="req_name" placeholder="College Name" class="w-full p-4 rounded-xl outline-none">
+                <input type="text" id="req_city" placeholder="City/State" class="w-full p-4 rounded-xl outline-none">
+                <select id="req_course" class="w-full p-4 rounded-xl outline-none">
+                    <option>B.Sc Nursing</option>
+                    <option>BMRIT</option>
+                </select>
+                <input type="number" id="req_seats" placeholder="Intake Capacity (e.g. 60)" class="w-full p-4 rounded-xl outline-none">
+                <button onclick="submitRequest()" class="w-full mbu-gold text-white p-5 rounded-xl font-black uppercase tracking-widest mt-4">Submit Application to MBU</button>
             </div>
-            <nav class="space-y-1 flex-1">
-                <button onclick="showAffiliations()" class="w-full text-left p-4 rounded-xl hover:bg-white/5 text-[11px] font-black uppercase"><i class="fas fa-university mr-3 text-amber-500"></i> College Affiliation</button>
-                <button onclick="showStudentEntry()" class="w-full text-left p-4 rounded-xl hover:bg-white/5 text-[11px] font-black uppercase"><i class="fas fa-user-plus mr-3 text-blue-500"></i> Manual Enrollment</button>
-                <button onclick="showFeeControl()" class="w-full text-left p-4 rounded-xl hover:bg-white/5 text-[11px] font-black uppercase"><i class="fas fa-lock mr-3 text-red-500"></i> Fee Lock Panel</button>
-                <button onclick="showDegreePanel()" class="w-full text-left p-4 rounded-xl hover:bg-white/5 text-[11px] font-black uppercase"><i class="fas fa-certificate mr-3 text-green-500"></i> Issue Degree</button>
-                <button onclick="showOverride()" class="w-full text-left p-4 rounded-xl hover:bg-amber-600/10 text-[11px] font-black uppercase border border-amber-600/20"><i class="fas fa-edit mr-3"></i> Supreme Override</button>
-            </nav>
-            <button onclick="location.reload()" class="mt-auto text-gray-600 font-black text-[10px] uppercase hover:text-white">Sign Out</button>
-        </aside>
+        </div>
+    </div>
 
-        <main class="flex-1 p-10 overflow-y-auto" id="displayArea"></main>
+    <div id="loginPanel" class="hidden min-h-screen flex items-center justify-center p-6">
+        <div class="max-w-md w-full glass p-10 rounded-[3rem] text-center">
+            <h2 id="loginTitle" class="text-2xl font-black italic mb-8"></h2>
+            <div class="space-y-4">
+                <input type="text" id="uid" placeholder="ID / Enrollment No" class="w-full p-4 bg-white/5 border border-white/10 rounded-xl outline-none font-bold">
+                <input type="password" id="upass" placeholder="Password / PIN" class="w-full p-4 bg-white/5 border border-white/10 rounded-xl outline-none font-bold">
+                <button onclick="handleMasterLogin()" class="w-full mbu-gold py-5 rounded-xl font-black uppercase tracking-widest mt-4">Enter Portal</button>
+                <button onclick="goHome()" class="text-gray-500 text-xs mt-4">Go Back</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminDash" class="hidden min-h-screen flex flex-col md:flex-row">
+        <aside class="w-72 bg-black border-r border-white/10 p-6">
+            <h2 class="text-amber-500 font-black italic mb-10">MBU MASTER</h2>
+            <nav class="space-y-2">
+                <button onclick="showRequests()" class="w-full text-left p-4 hover:bg-white/5 rounded-xl text-xs font-bold">Pending Requests</button>
+                <button onclick="showStudentManagement()" class="w-full text-left p-4 hover:bg-white/5 rounded-xl text-xs font-bold">Student Records</button>
+                <button onclick="location.reload()" class="text-red-500 p-4 text-[10px] font-black uppercase">Sign Out</button>
+            </nav>
+        </aside>
+        <main id="adminContent" class="flex-1 p-10"></main>
     </div>
 
     <script>
-        // MASTER DATABASE
-        let db = {
-            colleges: [{ name: "Mansingh Institute of Nursing", seats: 60, status: "Pending", id: "N/A" }],
-            students: [],
-            config: { uid: "MBU_CHANCELLOR_01", pin: "MBU_SUPER_POWER_2026" }
-        };
+        let db = { requests: [], students: [], activeLogin: '' };
 
-        function handleLogin() {
-            if(document.getElementById('uid').value === db.config.uid && document.getElementById('upass').value === db.config.pin) {
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('mainPortal').style.display = 'flex';
-                showAffiliations();
-            } else { alert("ACCESS DENIED: Invalid Credentials"); }
+        function showSection(id, type = '') {
+            document.getElementById('landingPage').classList.add('hidden');
+            document.getElementById(id).classList.remove('hidden');
+            if(type) {
+                db.activeLogin = type;
+                document.getElementById('loginTitle').innerText = type + " Login";
+            }
         }
 
-        // 1. AFFILIATION
-        function showAffiliations() {
-            let html = db.colleges.map((c, i) => `
-                <tr class="border-b border-white/5 text-sm">
-                    <td class="p-4 font-bold">${c.name}</td>
-                    <td class="p-4">${c.seats} Seats</td>
-                    <td class="p-4">${c.status === 'Pending' ? 
-                        `<button onclick="approve(${i})" class="bg-green-600 px-4 py-1 rounded font-black text-[10px]">APPROVE</button>` : 
-                        `<span class="text-green-500 font-black">ACTIVE (ID: ${c.id})</span>`}
-                    </td>
-                </tr>
-            `).join('');
-            document.getElementById('displayArea').innerHTML = `<h2 class="text-2xl font-black mb-6 italic uppercase tracking-tighter">Affiliation Console</h2><div class="glass p-6 rounded-[2.5rem]"><table class="w-full text-left"><tbody>${html}</tbody></table></div>`;
+        function goHome() {
+            location.reload();
         }
 
-        function approve(i) {
-            db.colleges[i].status = "Approved";
-            db.colleges[i].id = "MBU_COLG_" + Math.floor(100+Math.random()*900);
-            alert("College Approved Successfully!");
-            showAffiliations();
-        }
-
-        // 2. MANUAL ENROLLMENT
-        function showStudentEntry() {
-            document.getElementById('displayArea').innerHTML = `
-                <h2 class="text-2xl font-black mb-6 italic uppercase text-blue-500">Student Manual Enrollment</h2>
-                <div class="glass p-10 rounded-[2.5rem] grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <input type="text" id="s_name" placeholder="Full Name" class="bg-white/5 p-4 rounded-xl border border-white/10 font-bold outline-none focus:border-blue-500">
-                    <input type="text" id="s_course" placeholder="Course (B.Sc Nursing / BMRIT)" class="bg-white/5 p-4 rounded-xl border border-white/10 font-bold outline-none">
-                    <input type="text" id="s_batch" placeholder="Batch (e.g. 2026)" class="bg-white/5 p-4 rounded-xl border border-white/10 font-bold outline-none">
-                    <input type="text" id="s_reg" placeholder="Reg No (e.g. MBU/REG/101)" class="bg-white/5 p-4 rounded-xl border border-white/10 font-bold outline-none">
-                    <button onclick="enroll()" class="md:col-span-2 mbu-gold py-5 rounded-2xl font-black uppercase text-xs">Authorize Enrollment & Generate ID Card</button>
-                </div>
-                <div id="idContainer" class="mt-10"></div>
-            `;
-        }
-
-        function enroll() {
-            let s = {
-                name: document.getElementById('s_name').value,
-                course: document.getElementById('s_course').value,
-                batch: document.getElementById('s_batch').value,
-                reg: document.getElementById('s_reg').value,
-                id: "MBU" + Math.floor(100000+Math.random()*900000),
-                fee: "Paid",
-                date: new Date().toLocaleDateString()
+        function submitRequest() {
+            let req = {
+                name: document.getElementById('req_name').value,
+                city: document.getElementById('req_city').value,
+                course: document.getElementById('req_course').value,
+                seats: document.getElementById('req_seats').value,
+                status: 'Pending'
             };
-            db.students.push(s);
-            renderID(s);
+            db.requests.push(req);
+            alert("Application Sent! University will review and generate your ID.");
+            goHome();
         }
 
-        function renderID(s) {
-            document.getElementById('idContainer').innerHTML = `
-                <div class="id-card mx-auto text-center p-6 bg-white">
-                    <div class="mbu-gold p-3 rounded-xl mb-4 text-white font-black italic">MBU IDENTITY CARD</div>
-                    <div class="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4 border-2 border-amber-600"></div>
-                    <h3 class="text-xl font-black uppercase">${s.name}</h3>
-                    <p class="text-blue-600 font-bold text-xs mb-4">${s.course}</p>
-                    <div class="text-left text-[10px] font-black space-y-1 border-t pt-4">
-                        <p>ID: ${s.id}</p><p>REG NO: ${s.reg}</p><p>BATCH: ${s.batch}</p>
-                    </div>
-                    <div class="flex justify-between items-center mt-6">
-                        <div id="idQR"></div>
-                        <div class="text-right text-[7px] font-black uppercase"><p class="border-b border-black italic">Mansingh</p><p>Chancellor</p></div>
-                    </div>
+        function handleMasterLogin() {
+            const u = document.getElementById('uid').value;
+            const p = document.getElementById('upass').value;
+
+            if(db.activeLogin === 'Chancellor' && u === "MBU_CHANCELLOR_01" && p === "MBU_SUPER_POWER_2026") {
+                document.getElementById('loginPanel').classList.add('hidden');
+                document.getElementById('adminDash').classList.remove('hidden');
+                showRequests();
+            } else {
+                alert("Invalid Access!");
+            }
+        }
+
+        function showRequests() {
+            let html = db.requests.map((r, i) => `
+                <div class="glass p-6 rounded-2xl flex justify-between items-center mb-4">
+                    <div><h4 class="font-black text-lg">${r.name}</h4><p class="text-xs text-gray-400">${r.city} | ${r.course} (${r.seats} Seats)</p></div>
+                    <button onclick="approveCollege(${i})" class="bg-green-600 px-6 py-2 rounded-lg font-black text-xs">APPROVE & GENERATE ID</button>
                 </div>
-                <button onclick="window.print()" class="no-print mt-4 w-full text-gray-500 font-black text-[10px] uppercase tracking-widest">Print ID Card Package</button>
-            `;
-            new QRCode(document.getElementById("idQR"), { text: s.id, width: 50, height: 50 });
-        }
-
-        // 3. SUPREME OVERRIDE
-        function showOverride() {
-            if(db.students.length === 0) { alert("No student records found!"); return; }
-            let s = db.students[0];
-            document.getElementById('displayArea').innerHTML = `
-                <h2 class="text-2xl font-black mb-6 italic text-amber-500 uppercase tracking-widest">Chancellor's Override Panel</h2>
-                <div class="glass p-10 rounded-[2.5rem] grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div><label class="text-[9px] font-black text-gray-500 uppercase">Edit Name</label><input type="text" id="o_name" value="${s.name}" class="w-full bg-white/5 p-4 rounded-xl border border-white/10 outline-none"></div>
-                    <div><label class="text-[9px] font-black text-gray-500 uppercase">Back-Date Year</label><input type="text" id="o_year" value="${s.batch}" class="w-full bg-white/5 p-4 rounded-xl border border-white/10 outline-none"></div>
-                    <div><label class="text-[9px] font-black text-gray-500 uppercase">Back-Date Issue</label><input type="text" id="o_date" value="${s.date}" class="w-full bg-white/5 p-4 rounded-xl border border-white/10 outline-none"></div>
-                    <button onclick="saveOverride()" class="md:col-span-2 mbu-gold p-5 rounded-2xl font-black uppercase text-xs">Modify Universal Database</button>
-                </div>
-            `;
-        }
-
-        function saveOverride() {
-            db.students[0].name = document.getElementById('o_name').value;
-            db.students[0].batch = document.getElementById('o_year').value;
-            db.students[0].date = document.getElementById('o_date').value;
-            alert("MBU ALERT: Universal Records Modified.");
-        }
-
-        // 4. FEE CONTROL
-        function showFeeControl() {
-            let html = db.students.map((s, i) => `
-                <tr class="border-b border-white/5">
-                    <td class="p-4 font-bold uppercase">${s.name}</td>
-                    <td class="p-4"><button onclick="toggleFee(${i})" class="px-6 py-1 rounded font-black text-[10px] ${s.fee === 'Paid' ? 'bg-green-600' : 'bg-red-600'}">${s.fee}</button></td>
-                </tr>
             `).join('');
-            document.getElementById('displayArea').innerHTML = `<h2 class="text-2xl font-black mb-6 italic uppercase text-red-500">Global Fee Locks</h2><div class="glass p-6 rounded-[2.5rem]"><table class="w-full text-left"><tbody>${html}</tbody></table></div>`;
+            document.getElementById('adminContent').innerHTML = `<h2 class="text-2xl font-black mb-8 italic">New Affiliation Applications</h2>` + (html || '<p class="text-gray-500">No pending requests.</p>');
         }
 
-        function toggleFee(i) {
-            db.students[i].fee = db.students[i].fee === 'Paid' ? 'Pending' : 'Paid';
-            showFeeControl();
-        }
-
-        // 5. DEGREE
-        function showDegreePanel() {
-            if(db.students.length === 0) return;
-            let s = db.students[0];
-            if(s.fee === 'Pending') { alert("Degree Locked: Clearance Required"); return; }
-            document.getElementById('displayArea').innerHTML = `
-                <div class="degree-box mx-auto max-w-4xl text-center shadow-2xl bg-white text-black">
-                    <h1 class="degree-font text-4xl text-amber-900 mb-2 font-bold">Mansingh & Brothers University</h1>
-                    <p class="text-[9px] font-black uppercase tracking-[0.4em] text-gray-400 border-b pb-4 mb-10">Medical Recognition Council</p>
-                    <div class="py-14">
-                        <p class="italic font-serif text-lg">Upon successful completion of all academic requirements, it is certified that</p>
-                        <h2 class="degree-font text-5xl text-slate-800 my-4 uppercase">${s.name}</h2>
-                        <p class="italic font-serif text-lg">is hereby conferred the degree of</p>
-                        <h3 class="degree-font text-3xl text-amber-800 uppercase italic mt-4 underline decoration-double">${s.course}</h3>
-                    </div>
-                    <div class="flex justify-between items-center bg-slate-50 p-6 border-2 border-slate-200 rounded-lg mb-10 text-left">
-                        <div>
-                            <p class="text-[9px] font-black uppercase text-gray-400">Professional Registration No.</p>
-                            <h4 class="text-xl font-mono font-black text-blue-900">${s.reg}</h4>
-                            <p class="text-[9px] font-bold text-amber-700 mt-1 italic uppercase underline">Batch: ${s.batch} | Official Verified</p>
-                        </div>
-                        <div id="degQR"></div>
-                    </div>
-                    <div class="flex justify-between items-end mt-12 px-10">
-                        <div class="text-center"><p class="text-[9px] font-black border-t border-black pt-1">REGISTRAR</p></div>
-                        <div class="text-center"><p class="degree-font text-xl text-amber-900 italic underline">Mansingh</p><p class="text-[9px] font-black border-t border-black pt-1 uppercase">CHANCELLOR</p></div>
-                    </div>
-                    <p class="mt-10 text-[7px] text-gray-400 uppercase tracking-widest">Date of Issue: ${s.date} | MBU Global Authentication QR Enabled</p>
-                </div>
-                <button onclick="window.print()" class="no-print mt-10 w-full mbu-gold py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-2xl">Authorize & Print Official Degree</button>
-            `;
-            setTimeout(() => { new QRCode(document.getElementById("degQR"), { text: "MBU-VERIFY-" + s.id, width: 80, height: 80 }); }, 100);
+        function approveCollege(i) {
+            let id = "MBU_COLG_" + Math.floor(100+Math.random()*900);
+            let pass = "MBU_PASS_" + Math.floor(1000+Math.random()*9000);
+            alert(`COLLEGE APPROVED!\n\nID: ${id}\nPassword: ${pass}\n\nCollege can now login and add students.`);
+            db.requests.splice(i, 1);
+            showRequests();
         }
     </script>
 </body>
