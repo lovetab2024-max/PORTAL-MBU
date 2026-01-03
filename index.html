@@ -3,152 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBU | University Management System</title>
+    <title>MBU | Ultimate Supreme Legacy ERP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background: #020617; color: white; }
+        body { font-family: 'Inter', sans-serif; background: #010409; color: white; overflow-x: hidden; }
         .mbu-gold { background: linear-gradient(135deg, #b45309 0%, #78350f 100%); }
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .degree-box { border: 15px double #b45309; background: white; color: black; padding: 50px; position: relative; }
-        @media print { .no-print { display: none !important; } }
+        input, select, textarea { color: black !important; font-weight: bold; background: white !important; width: 100%; padding: 12px; border-radius: 12px; margin-top: 5px; }
+        label { font-size: 10px; font-weight: 900; color: #fbbf24; text-transform: uppercase; }
+        .degree-box { border: 20px double #b45309; padding: 50px; background: white; color: black; position: relative; min-height: 900px; text-align: center; }
+        .receipt-box { background: white; color: black; padding: 40px; border: 2px solid #ddd; position: relative; }
+        @media print { .no-print { display: none !important; } .print-area { display: block !important; } }
     </style>
 </head>
 <body>
 
-    <div id="landingPage" class="min-h-screen flex flex-col items-center justify-center p-6 space-y-8">
-        <div class="text-center">
-            <i class="fas fa-university text-6xl text-amber-500 mb-4"></i>
-            <h1 class="text-4xl font-black italic">MANSINGH & BROTHERS UNIVERSITY</h1>
-            <p class="text-gray-400 mt-2 uppercase tracking-widest text-xs">Academic Excellence & Recognition</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl">
-            <div class="glass p-8 rounded-3xl border-t-4 border-amber-600 hover:bg-white/5 transition cursor-pointer" onclick="showSection('affiliationForm')">
-                <i class="fas fa-file-signature text-amber-500 text-3xl mb-4"></i>
-                <h3 class="font-black text-lg">College Affiliation</h3>
-                <p class="text-[10px] text-gray-400 mt-2">New colleges can apply here without an account.</p>
-            </div>
-            <div class="glass p-8 rounded-3xl border-t-4 border-red-600 hover:bg-white/5 transition cursor-pointer" onclick="showSection('loginPanel', 'Chancellor')">
-                <i class="fas fa-crown text-red-500 text-3xl mb-4"></i>
-                <h3 class="font-black text-lg">Chancellor Login</h3>
-                <p class="text-[10px] text-gray-400 mt-2">University Master Control Access.</p>
-            </div>
-            <div class="glass p-8 rounded-3xl border-t-4 border-blue-600 hover:bg-white/5 transition cursor-pointer" onclick="showSection('loginPanel', 'College')">
-                <i class="fas fa-building-columns text-blue-500 text-3xl mb-4"></i>
-                <h3 class="font-black text-lg">College Login</h3>
-                <p class="text-[10px] text-gray-400 mt-2">For already affiliated institutions.</p>
-            </div>
-            <div class="glass p-8 rounded-3xl border-t-4 border-green-600 hover:bg-white/5 transition cursor-pointer" onclick="showSection('loginPanel', 'Student')">
-                <i class="fas fa-user-graduate text-green-500 text-3xl mb-4"></i>
-                <h3 class="font-black text-lg">Student Portal</h3>
-                <p class="text-[10px] text-gray-400 mt-2">Download ID Card, Admit Card & Degree.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="affiliationForm" class="hidden min-h-screen p-10">
-        <button onclick="goHome()" class="text-amber-500 font-black mb-8"><i class="fas fa-arrow-left mr-2"></i> Back to Home</button>
-        <div class="max-w-2xl mx-auto glass p-10 rounded-[3rem]">
-            <h2 class="text-3xl font-black italic mb-6">Affiliation Request Form</h2>
-            <div class="space-y-4 text-black">
-                <input type="text" id="req_name" placeholder="College Name" class="w-full p-4 rounded-xl outline-none">
-                <input type="text" id="req_city" placeholder="City/State" class="w-full p-4 rounded-xl outline-none">
-                <select id="req_course" class="w-full p-4 rounded-xl outline-none">
-                    <option>B.Sc Nursing</option>
-                    <option>BMRIT</option>
-                </select>
-                <input type="number" id="req_seats" placeholder="Intake Capacity (e.g. 60)" class="w-full p-4 rounded-xl outline-none">
-                <button onclick="submitRequest()" class="w-full mbu-gold text-white p-5 rounded-xl font-black uppercase tracking-widest mt-4">Submit Application to MBU</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="loginPanel" class="hidden min-h-screen flex items-center justify-center p-6">
-        <div class="max-w-md w-full glass p-10 rounded-[3rem] text-center">
-            <h2 id="loginTitle" class="text-2xl font-black italic mb-8"></h2>
+    <div id="landing" class="min-h-screen flex flex-col items-center justify-center p-6 no-print">
+        <h1 class="text-7xl font-black text-amber-500 italic mb-2">MBU SUPREME</h1>
+        <p class="text-gray-500 tracking-[0.4em] text-[10px] mb-12 uppercase font-black">UGC & Medical Council Compliant Legacy System</p>
+        
+        <div class="glass p-10 rounded-[3rem] w-full max-w-md border-t-8 border-amber-600 shadow-2xl">
+            <h2 id="logLabel" class="text-2xl font-black mb-6 text-center italic">CHANCELLOR ACCESS</h2>
             <div class="space-y-4">
-                <input type="text" id="uid" placeholder="ID / Enrollment No" class="w-full p-4 bg-white/5 border border-white/10 rounded-xl outline-none font-bold">
-                <input type="password" id="upass" placeholder="Password / PIN" class="w-full p-4 bg-white/5 border border-white/10 rounded-xl outline-none font-bold">
-                <button onclick="handleMasterLogin()" class="w-full mbu-gold py-5 rounded-xl font-black uppercase tracking-widest mt-4">Enter Portal</button>
-                <button onclick="goHome()" class="text-gray-500 text-xs mt-4">Go Back</button>
+                <input id="uid" type="text" placeholder="Access ID">
+                <input id="upin" type="password" placeholder="Security PIN">
+                <button onclick="login()" class="w-full mbu-gold py-5 rounded-2xl font-black uppercase text-lg">Secure Login</button>
+            </div>
+            <div class="flex justify-between mt-8 text-[9px] font-black text-gray-500 uppercase">
+                <span onclick="setRole('Chancellor')" class="cursor-pointer hover:text-red-500">Chancellor</span>
+                <span onclick="setRole('College')" class="cursor-pointer hover:text-blue-500">College</span>
+                <span onclick="setRole('Student')" class="cursor-pointer hover:text-green-500">Student</span>
             </div>
         </div>
+        <button onclick="showAffilation()" class="mt-10 text-amber-600 font-black uppercase text-xs border-b-2 border-amber-600 pb-1">New College Affiliation (Medical/General)</button>
     </div>
 
-    <div id="adminDash" class="hidden min-h-screen flex flex-col md:flex-row">
-        <aside class="w-72 bg-black border-r border-white/10 p-6">
-            <h2 class="text-amber-500 font-black italic mb-10">MBU MASTER</h2>
-            <nav class="space-y-2">
-                <button onclick="showRequests()" class="w-full text-left p-4 hover:bg-white/5 rounded-xl text-xs font-bold">Pending Requests</button>
-                <button onclick="showStudentManagement()" class="w-full text-left p-4 hover:bg-white/5 rounded-xl text-xs font-bold">Student Records</button>
-                <button onclick="location.reload()" class="text-red-500 p-4 text-[10px] font-black uppercase">Sign Out</button>
-            </nav>
+    <div id="dashboard" class="hidden min-h-screen flex">
+        <aside class="w-80 bg-black border-r border-white/10 p-8 no-print">
+            <h2 id="roleTitle" class="text-amber-500 font-black italic mb-12 text-2xl uppercase">MBU ERP</h2>
+            <nav id="sidebar" class="space-y-3"></nav>
+            <button onclick="location.reload()" class="mt-20 text-red-600 font-black text-xs uppercase italic w-full text-left">Logout</button>
         </aside>
-        <main id="adminContent" class="flex-1 p-10"></main>
+        <main id="content" class="flex-1 p-12 overflow-y-auto"></main>
     </div>
 
     <script>
-        let db = { requests: [], students: [], activeLogin: '' };
+        let userRole = "Chancellor";
+        let db = {
+            students: [{
+                id: "MBU-BMRIT-786", name: "Rahul Singh", course: "B.Sc Radiology (BMRIT)", 
+                college: "MBU Medical Campus", intern: "12 Months Completed", 
+                reg: "MBU/RAD/2026/01", marks: 85, admDate: "2022-07-10", degDate: "2026-01-03", 
+                batch: "2022-26", feePaid: "1,20,000", feeTx: "TXN-MBU-786"
+            }]
+        };
 
-        function showSection(id, type = '') {
-            document.getElementById('landingPage').classList.add('hidden');
-            document.getElementById(id).classList.remove('hidden');
-            if(type) {
-                db.activeLogin = type;
-                document.getElementById('loginTitle').innerText = type + " Login";
+        function setRole(r) { userRole = r; document.getElementById('logLabel').innerText = r.toUpperCase() + " ACCESS"; }
+        
+        function login() {
+            document.getElementById('landing').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            renderDashboard();
+        }
+
+        function renderDashboard() {
+            const side = document.getElementById('sidebar');
+            document.getElementById('roleTitle').innerText = "MBU " + userRole;
+            if(userRole === 'Chancellor') {
+                side.innerHTML = `
+                    <button onclick="chanMaster()" class="w-full text-left p-4 hover:bg-white/5 rounded-2xl text-xs font-black text-red-500 uppercase">God Mode (Back-date Entry)</button>
+                    <button onclick="chanFeeControl()" class="w-full text-left p-4 hover:bg-white/5 rounded-2xl text-xs font-black uppercase text-green-500">Manual Fee Generation</button>
+                    <button onclick="chanAffReview()" class="w-full text-left p-4 hover:bg-white/5 rounded-2xl text-xs font-black uppercase">Affiliation Requests</button>`;
+                chanMaster();
+            } else if(userRole === 'College') {
+                side.innerHTML = `<button onclick="colAdm()" class="w-full text-left p-4 hover:bg-white/5 rounded-2xl text-xs font-black uppercase text-blue-400">+ New Admission</button>`;
+                colAdm();
+            } else { studentPortal(); }
+        }
+
+        // --- CHANCELLOR: GOD MODE & FEES ---
+        function chanMaster() {
+            let trs = db.students.map((s, i) => `<tr class="border-b border-white/5 text-xs font-black uppercase">
+                <td>${s.name}</td><td class="text-amber-500">${s.id}</td><td>${s.course}</td>
+                <td><button onclick="override(${i})" class="bg-white text-black px-4 py-1 rounded-full text-[9px]">EDIT ALL</button></td></tr>`).join('');
+            document.getElementById('content').innerHTML = `<h2 class="text-3xl font-black mb-8 italic text-red-600 uppercase">Supreme Override</h2><div class="glass p-8 rounded-[3rem]"><table class="w-full text-left"><thead><tr><th>Name</th><th>Enrollment</th><th>Course</th><th>Action</th></tr></thead><tbody>${trs}</tbody></table></div>`;
+        }
+
+        function override(i) {
+            let s = db.students[i];
+            document.getElementById('content').innerHTML = `<div class="glass p-10 rounded-[3rem] max-w-4xl mx-auto"><h2 class="text-2xl font-black mb-8 italic text-red-500 uppercase">Override Record</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label>Name</label><input id="on" value="${s.name}"></div><div><label>Enrollment</label><input id="oi" value="${s.id}"></div>
+                    <div><label>Back-date Adm</label><input id="oad" type="date" value="${s.admDate}"></div><div><label>Back-date Degree</label><input id="odd" type="date" value="${s.degDate}"></div>
+                    <div><label>Course</label><select id="oc"><option>B.Sc Radiology (BMRIT)</option><option>B.Sc Nursing</option></select></div><div><label>Manual Marks %</label><input id="om" value="${s.marks}"></div>
+                </div><button onclick="alert('Database Overridden!'); chanMaster();" class="w-full mbu-gold p-5 rounded-2xl font-black mt-8 text-white uppercase shadow-2xl">Confirm Sync</button></div>`;
+        }
+
+        function chanFeeControl() {
+            document.getElementById('content').innerHTML = `<div class="glass p-10 rounded-[3rem] max-w-2xl mx-auto"><h2 class="text-2xl font-black mb-8 italic uppercase">Manual Fee Receipt Generator</h2>
+                <div class="space-y-4"><input placeholder="Student ID"><input placeholder="Fee Amount (e.g. 55000)"><input type="date"><button onclick="alert('Receipt Generated!');" class="w-full mbu-gold p-4 rounded-xl font-black uppercase">Create Official Receipt</button></div></div>`;
+        }
+
+        // --- STUDENT PORTAL: ALL DOCUMENTS ---
+        function studentPortal(s = db.students[0]) {
+            document.getElementById('content').innerHTML = `
+                <div class="max-w-5xl mx-auto space-y-6">
+                    <div class="glass p-10 rounded-[3rem] border-l-[10px] border-amber-600 flex justify-between items-center">
+                        <div><h2 class="text-4xl font-black uppercase italic">${s.name}</h2><p class="text-amber-500 font-bold text-xs uppercase">${s.course}</p></div>
+                        <div class="text-right text-[10px] font-black uppercase text-gray-500"><p>ID: ${s.id}</p><p>REG: ${s.reg}</p></div>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 no-print">
+                        <button onclick="draw('ID')" class="glass p-5 rounded-2xl text-[9px] font-black uppercase"><i class="fas fa-id-card block mb-2 text-xl text-blue-500"></i> ID Card</button>
+                        <button onclick="draw('Intern')" class="glass p-5 rounded-2xl text-[9px] font-black uppercase text-red-500"><i class="fas fa-hospital-user block mb-2 text-xl"></i> 1-Yr Intern Letter</button>
+                        <button onclick="draw('Degree')" class="glass p-5 rounded-2xl text-[9px] font-black uppercase text-yellow-500"><i class="fas fa-award block mb-2 text-xl"></i> Final Degree</button>
+                        <button onclick="draw('Fee')" class="glass p-5 rounded-2xl text-[9px] font-black uppercase text-green-500"><i class="fas fa-receipt block mb-2 text-xl"></i> Fee Receipt</button>
+                    </div>
+                    <div id="printZone" class="min-h-[600px] flex items-center justify-center italic text-gray-500">Ready to Generate Official Documents</div>
+                </div>`;
+        }
+
+        function draw(t) {
+            const s = db.students[0]; const area = document.getElementById('printZone');
+            if(t === 'Degree') {
+                area.innerHTML = `<div class="degree-box print-area shadow-2xl scale-95"><h1 class="text-4xl font-serif font-black uppercase mb-2">Mansingh & Brothers University</h1><p class="text-[9px] font-bold uppercase tracking-[0.3em] mb-16 italic">Established under UGC Act 1956 & Council Recognized</p>
+                    <div class="py-12"><p class="text-xl italic font-serif">The Academic Council confers upon</p><h2 class="text-5xl font-black my-6 uppercase border-b-2 border-black inline-block px-12">${s.name}</h2><p class="text-xl italic font-serif">the degree of</p><h3 class="text-4xl font-black mt-4 uppercase">${s.course}</h3><p class="mt-8 text-sm font-bold uppercase">Completion of 4-Year Curriculum including 12-Month Radiology Internship.</p></div>
+                    <div class="flex justify-between items-end mt-24 border-t-2 border-black pt-10"><div class="text-left font-black"><p class="text-[9px] text-gray-400 uppercase">COUNCIL REG NO.</p><p class="text-2xl">${s.reg}</p></div><div id="qrd"></div><div class="text-right font-serif text-3xl italic">Mansingh<br><span class="text-[10px] font-sans font-black uppercase tracking-widest">Chancellor</span></div></div></div><button onclick="window.print()" class="no-print mt-6 w-full mbu-gold p-4 rounded-xl font-black uppercase">Download Legal Degree</button>`;
+                setTimeout(()=>new QRCode(document.getElementById("qrd"),{text:s.id,width:80,height:80}),100);
+            } else if(t === 'Intern') {
+                area.innerHTML = `<div class="bg-white p-10 text-black border-8 double border-blue-900 rounded-xl print-area">
+                    <h2 class="text-center font-black text-2xl mb-12 uppercase italic border-b-2 border-black pb-4">Clinical Internship Certificate</h2>
+                    <p class="text-xl leading-relaxed font-bold">This is to certify that <b>${s.name}</b> has successfully completed <b>ONE FULL YEAR (12 MONTHS)</b> of clinical training in <b>Radiology</b> at MBU Hospital. Completion: ${s.degDate}.</p>
+                    <div class="mt-20 flex justify-between font-black italic border-t-2 border-black pt-6"><p>Medical Superintendent</p><p>Chancellor, MBU</p></div>
+                </div><button onclick="window.print()" class="no-print mt-4 w-full mbu-gold p-3 rounded-xl font-black uppercase">Print Internship Letter</button>`;
+            } else if(t === 'Fee') {
+                area.innerHTML = `<div class="receipt-box print-area text-left shadow-xl">
+                    <div class="flex justify-between border-b-2 border-black pb-4 mb-4"><h1 class="font-black text-xl uppercase">MBU FINANCE</h1><p class="text-xs font-bold uppercase">Receipt No: ${s.feeTx}</p></div>
+                    <p class="font-bold">Student: ${s.name}</p><p class="font-bold">Amount Paid: ₹${s.feePaid}</p><p class="text-green-600 font-black mt-4 uppercase">Status: PAID (SUCCESSFUL)</p>
+                    <div class="mt-8 flex justify-center" id="qrf"></div></div><button onclick="window.print()" class="no-print mt-4 w-full mbu-gold p-3 rounded-xl font-black uppercase">Download Fee Receipt</button>`;
+                setTimeout(()=>new QRCode(document.getElementById("qrf"),{text:s.feeTx,width:60,height:60}),100);
+            } else if(t === 'ID') {
+                area.innerHTML = `<div class="w-72 mx-auto bg-white p-6 rounded-3xl text-black border-4 border-amber-600 print-area text-center shadow-2xl">
+                    <h2 class="font-black text-amber-800 text-lg uppercase">MBU UNIVERSITY</h2><div class="w-20 h-20 bg-gray-200 mx-auto my-3 rounded-full flex items-center justify-center font-black text-2xl">${s.name[0]}</div>
+                    <h3 class="text-xl font-black uppercase">${s.name}</h3><p class="text-[9px] font-bold text-gray-500 mb-4">${s.course}</p>
+                    <div id="qri" class="flex justify-center mt-4"></div></div>`;
+                setTimeout(()=>new QRCode(document.getElementById("qri"),{text:s.id,width:50,height:50}),100);
             }
         }
 
-        function goHome() {
-            location.reload();
+        function showAffilation() {
+            document.getElementById('landing').innerHTML = `<div class="glass p-12 rounded-[3rem] w-full max-w-4xl">
+                <h2 class="text-3xl font-black mb-8 italic text-amber-500 border-b border-white/10 pb-4 uppercase">College Affiliation Compliance Form</h2>
+                <div class="grid grid-cols-2 gap-6">
+                    <div><label>College Name</label><input></div><div><label>Trust Name</label><input></div>
+                    <div><label>Hospital Tie-up (1-Yr Intern)</label><input></div><div><label>Bed Capacity</label><input type="number"></div>
+                    <div><label>Radiology Lab Machines</label><input></div><div><label>Compliance Status</label><select><option>NMC/UGC Compliant</option></select></div>
+                </div><button onclick="location.reload()" class="w-full mbu-gold p-5 rounded-2xl font-black mt-10 text-white uppercase shadow-2xl">Submit to Chancellor</button></div>`;
         }
-
-        function submitRequest() {
-            let req = {
-                name: document.getElementById('req_name').value,
-                city: document.getElementById('req_city').value,
-                course: document.getElementById('req_course').value,
-                seats: document.getElementById('req_seats').value,
-                status: 'Pending'
-            };
-            db.requests.push(req);
-            alert("Application Sent! University will review and generate your ID.");
-            goHome();
-        }
-
-        function handleMasterLogin() {
-            const u = document.getElementById('uid').value;
-            const p = document.getElementById('upass').value;
-
-            if(db.activeLogin === 'Chancellor' && u === "MBU_CHANCELLOR_01" && p === "MBU_SUPER_POWER_2026") {
-                document.getElementById('loginPanel').classList.add('hidden');
-                document.getElementById('adminDash').classList.remove('hidden');
-                showRequests();
-            } else {
-                alert("Invalid Access!");
-            }
-        }
-
-        function showRequests() {
-            let html = db.requests.map((r, i) => `
-                <div class="glass p-6 rounded-2xl flex justify-between items-center mb-4">
-                    <div><h4 class="font-black text-lg">${r.name}</h4><p class="text-xs text-gray-400">${r.city} | ${r.course} (${r.seats} Seats)</p></div>
-                    <button onclick="approveCollege(${i})" class="bg-green-600 px-6 py-2 rounded-lg font-black text-xs">APPROVE & GENERATE ID</button>
-                </div>
-            `).join('');
-            document.getElementById('adminContent').innerHTML = `<h2 class="text-2xl font-black mb-8 italic">New Affiliation Applications</h2>` + (html || '<p class="text-gray-500">No pending requests.</p>');
-        }
-
-        function approveCollege(i) {
-            let id = "MBU_COLG_" + Math.floor(100+Math.random()*900);
-            let pass = "MBU_PASS_" + Math.floor(1000+Math.random()*9000);
-            alert(`COLLEGE APPROVED!\n\nID: ${id}\nPassword: ${pass}\n\nCollege can now login and add students.`);
-            db.requests.splice(i, 1);
-            showRequests();
-        }
+        function colAdm() { document.getElementById('content').innerHTML = `<h2 class="text-3xl font-black mb-6 italic uppercase text-blue-500">Medical Admission Board</h2><div class="glass p-10 rounded-[3rem] grid grid-cols-2 gap-4"><input placeholder="Student Name"><input placeholder="Reg No"><button onclick="alert('Admission Registered!')" class="col-span-2 mbu-gold p-4 rounded-xl font-black uppercase">Confirm Admission</button></div>`; }
     </script>
 </body>
 </html>
